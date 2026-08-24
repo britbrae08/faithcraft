@@ -12,6 +12,8 @@ const checks = [
   ["SMS destination", html.includes("sms:8162596486?body=faithcraft")],
   ["canonical URL", html.includes('href="https://faithcraft.agency/"')],
   ["official logo references", (html.match(/faithcraft-logo\.jpg/g) || []).length >= 6],
+  ["safe header logo dimensions", html.includes('width="58" height="58"') && css.includes("max-width: 58px")],
+  ["cache-busted stylesheet", html.includes('/styles.css?v=20260824-1')],
   ["custom-drawn brand mark removed", !html.includes("brand-mark") && !css.includes(".mark-f")],
   ["source logo copied", logo.length > 100000],
   ["brand colors", ["#010c18", "#c79341", "#186059"].every((color) => css.toLowerCase().includes(color))],
