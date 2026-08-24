@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://faithcraft.agency/sitemap.xml
+
