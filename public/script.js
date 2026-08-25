@@ -16,6 +16,18 @@ const updateScroll = () => {
 updateScroll();
 window.addEventListener("scroll", updateScroll, { passive: true });
 
+document.querySelectorAll(".mobile-nav").forEach((menu) => {
+  menu.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => menu.removeAttribute("open"));
+  });
+  menu.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      menu.removeAttribute("open");
+      menu.querySelector("summary")?.focus();
+    }
+  });
+});
+
 if ("IntersectionObserver" in window) {
   const observer = new IntersectionObserver(
     (entries) => {
@@ -33,10 +45,8 @@ if ("IntersectionObserver" in window) {
   revealItems.forEach((item) => item.classList.add("is-visible"));
 }
 
-const emailForm = document.querySelector("[data-email-form]");
-const emailStatus = document.querySelector("[data-email-status]");
-
-if (emailForm) {
+document.querySelectorAll("[data-email-form]").forEach((emailForm) => {
+  const emailStatus = emailForm.querySelector("[data-email-status]");
   emailForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -44,29 +54,44 @@ if (emailForm) {
     const name = String(formData.get("name") || "").trim();
     const email = String(formData.get("email") || "").trim();
     const organization = String(formData.get("organization") || "").trim();
+    const phone = String(formData.get("phone") || "").trim();
+    const promotion = String(formData.get("promotion") || "").trim();
     const message = String(formData.get("message") || "").trim();
     const destination = "kalmanroller@gmail.com";
-    const subject = `FaithCraft inquiry from ${name}`;
-    const body = [
-      `Name: ${name}`,
-      `Email: ${email}`,
-      organization ? `Organization: ${organization}` : null,
-      "",
-      "How FaithCraft can help:",
-      message,
-    ].filter((line) => line !== null).join("\n");
+    const isLeadgen = emailForm.dataset.formType === "leadgen";
+    const subjectPrefix = emailForm.dataset.subject || "FaithCraft inquiry";
+    const subject = `${subjectPrefix} from ${name}`;
+    const body = isLeadgen
+      ? [
+          `Name: ${name}`,
+          `Church / Ministry: ${organization}`,
+          `Email: ${email}`,
+          `Phone: ${phone}`,
+          `What are you promoting?: ${promotion}`,
+          "",
+          "Outreach goal:",
+          message,
+        ].join("\n")
+      : [
+          `Name: ${name}`,
+          `Email: ${email}`,
+          organization ? `Organization: ${organization}` : null,
+          "",
+          "How FaithCraft can help:",
+          message,
+        ].filter((line) => line !== null).join("\n");
 
     if (event.submitter?.value === "gmail") {
       const gmailUrl = new URL("https://mail.google.com/mail/");
       gmailUrl.search = new URLSearchParams({ view: "cm", fs: "1", to: destination, su: subject, body }).toString();
       const gmailWindow = window.open(gmailUrl, "_blank", "noopener,noreferrer");
       if (!gmailWindow) window.location.href = gmailUrl;
-      emailStatus.textContent = "Gmail is opening with your message ready to review and send.";
+      if (emailStatus) emailStatus.textContent = "Gmail is opening with your message ready to review and send.";
       return;
     }
 
     window.location.href = `mailto:${destination}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    emailStatus.textContent = "Your email app is opening with your message ready to review and send.";
+    if (emailStatus) emailStatus.textContent = "Your email app is opening with your message ready to review and send.";
   });
-}
+});
 

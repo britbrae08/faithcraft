@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=20260824-2" />
+    <link rel="stylesheet" href="/styles.css?v=20260824-3" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://faithcraft.agency/" />
     <meta property="og:title" content="Your Ministry Was Never Meant to Stay Hidden." />
@@ -28,15 +28,27 @@
     <div class="page-progress" aria-hidden="true"><span></span></div>
 
     <header class="site-header" data-header>
-      <a class="brand" href="#top" aria-label="FaithCraft Agency home">
+      <a class="brand" href="/" aria-label="FaithCraft Agency home">
         <img class="brand-logo brand-logo-header" src="/faithcraft-logo.jpg" alt="FaithCraft Agency" width="58" height="58" />
       </a>
       <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="#approach">Approach</a>
-        <a href="#services">What we build</a>
-        <a href="#questions">Questions</a>
-        <a href="#contact">Contact</a>
+        <a href="/#approach">Approach</a>
+        <a href="/#services">What we build</a>
+        <a class="nav-feature" href="/leadgen">Lead Generator</a>
+        <a href="/#questions">Questions</a>
+        <a href="/#contact">Contact</a>
       </nav>
+      <details class="mobile-nav">
+        <summary aria-label="Open navigation menu">Menu</summary>
+        <nav aria-label="Mobile navigation">
+          <a href="/">Home</a>
+          <a href="/#approach">Approach</a>
+          <a href="/#services">What we build</a>
+          <a href="/leadgen">Lead Generator</a>
+          <a href="/#questions">Questions</a>
+          <a href="/#contact">Contact</a>
+        </nav>
+      </details>
       <a class="button button-small button-outline" href="#contact">Contact FaithCraft</a>
     </header>
 
@@ -279,15 +291,18 @@
     </main>
 
     <footer>
-      <a class="brand brand-footer" href="#top" aria-label="Back to top">
+      <a class="brand brand-footer" href="/" aria-label="FaithCraft Agency home">
         <img class="brand-logo brand-logo-footer" src="/faithcraft-logo.jpg" alt="FaithCraft Agency" width="112" height="112" loading="lazy" />
       </a>
-      <p>Strategy. Creativity. Kingdom Impact.</p>
-      <div><a href="mailto:kalmanroller@gmail.com">kalmanroller@gmail.com</a><a href="sms:8162596486?body=faithcraft">816-259-6486</a><span>© <span data-year></span> FaithCraft Agency</span></div>
+      <div class="footer-center">
+        <p>Strategy. Creativity. Kingdom Impact.</p>
+        <nav class="footer-nav" aria-label="Footer navigation"><a href="/">Home</a><a href="/leadgen">Lead Generator</a><a href="/#services">Services</a><a href="/#contact">Contact</a></nav>
+      </div>
+      <div class="footer-contact"><a href="mailto:kalmanroller@gmail.com">kalmanroller@gmail.com</a><a href="sms:8162596486?body=faithcraft">816-259-6486</a><span>© <span data-year></span> FaithCraft Agency</span></div>
     </footer>
 
     <a class="mobile-cta" href="sms:8162596486?body=faithcraft"><span>Text “FaithCraft” now</span><b>↗</b></a>
-    <script src="/script.js?v=20260824-2" defer></script>
+    <script src="/script.js?v=20260824-3" defer></script>
   </body>
 </html>
 
