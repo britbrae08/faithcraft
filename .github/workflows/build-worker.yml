@@ -1,0 +1,40 @@
+name: Build FaithCraft Worker
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "public/**"
+      - "scripts/build.mjs"
+      - ".github/workflows/build-worker.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Build generated Worker
+        run: node scripts/build.mjs
+
+      - name: Commit generated Worker when changed
+        shell: bash
+        run: |
+          if git diff --quiet -- src/worker.js; then
+            echo "Worker is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/worker.js
+          git commit -m "Build FaithCraft Worker"
+          git push
