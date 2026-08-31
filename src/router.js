@@ -1,0 +1,66 @@
+import siteWorker from "./worker.js";
+
+const slingPage = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#13271f" />
+  <meta name="description" content="Play SLING, a fast Bible-era physics challenge presented by FaithCraft." />
+  <title>SLING | FaithCraft</title>
+  <style>
+    :root { color-scheme: dark; --ink:#f8efd9; --muted:#cbbd9f; --green:#13271f; --green2:#1c352a; --gold:#d7ae63; --line:rgba(248,239,217,.13); }
+    * { box-sizing:border-box; }
+    html,body { min-height:100%; margin:0; }
+    body { min-height:100dvh; background:radial-gradient(circle at 50% -20%,rgba(215,174,99,.18),transparent 38rem),linear-gradient(180deg,var(--green2),var(--green)); color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    .page { min-height:100dvh; display:grid; grid-template-rows:auto 1fr auto; }
+    header { height:62px; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:max(10px,env(safe-area-inset-top)) 18px 10px; border-bottom:1px solid var(--line); background:rgba(13,30,23,.72); backdrop-filter:blur(16px); position:relative; z-index:2; }
+    .brand { color:var(--ink); text-decoration:none; font-weight:850; letter-spacing:.12em; text-transform:uppercase; font-size:.82rem; }
+    .game-name { color:var(--gold); font-weight:900; letter-spacing:.18em; font-size:.8rem; }
+    main { min-height:0; display:grid; place-items:center; padding:12px; }
+    .game-frame { width:min(100%,520px); height:min(820px,calc(100dvh - 112px)); min-height:620px; border:1px solid rgba(215,174,99,.24); border-radius:22px; overflow:hidden; background:#13271f; box-shadow:0 26px 80px rgba(0,0,0,.34); }
+    iframe { display:block; width:100%; height:100%; border:0; background:#13271f; }
+    footer { min-height:38px; display:flex; align-items:center; justify-content:center; padding:8px 16px max(8px,env(safe-area-inset-bottom)); color:var(--muted); font-size:.74rem; text-align:center; }
+    footer a { color:var(--gold); }
+    @media (max-width:560px) { header{height:54px;padding-left:14px;padding-right:14px} main{padding:0;place-items:stretch} .game-frame{width:100%;height:calc(100dvh - 88px);min-height:0;border:0;border-radius:0;box-shadow:none} footer{min-height:34px} }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <a class="brand" href="/">FaithCraft</a>
+      <span class="game-name">SLING</span>
+    </header>
+    <main>
+      <div class="game-frame">
+        <iframe src="https://britbrae08.github.io/sling/" title="Play SLING" allow="fullscreen" loading="eager"></iframe>
+      </div>
+    </main>
+    <footer><span>If the game does not appear, <a href="https://britbrae08.github.io/sling/">open SLING directly</a>.</span></footer>
+  </div>
+</body>
+</html>`;
+
+const slingHeaders = {
+  "Content-Type": "text/html; charset=UTF-8",
+  "Cache-Control": "no-cache",
+  "Content-Security-Policy": "default-src 'self'; style-src 'unsafe-inline'; frame-src https://britbrae08.github.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self'",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY"
+};
+
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
+    if (url.pathname === "/sling" || url.pathname === "/sling/" || url.pathname === "/sling/index.html") {
+      if (request.method !== "GET" && request.method !== "HEAD") {
+        return new Response("Method Not Allowed", { status: 405, headers: { Allow: "GET, HEAD" } });
+      }
+      return new Response(request.method === "HEAD" ? null : slingPage, { status: 200, headers: slingHeaders });
+    }
+
+    return siteWorker.fetch(request, env, ctx);
+  }
+};
