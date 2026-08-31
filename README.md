@@ -2,7 +2,7 @@
 
 Conversion-focused website for [faithcraft.agency](https://faithcraft.agency), built as a lightweight Cloudflare Worker with no framework or runtime dependencies.
 
-The site includes the main agency page and a dedicated Bible study lead-generation service page at `/leadgen`. Both pages share responsive navigation, footer links, SMS calls to action, and email inquiry behavior.
+The site includes the main agency page, a dedicated Bible study lead-generation service page at `/leadgen`, and the FaithCraft game **SLING** at `/sling/`. Both pages share responsive navigation, footer links, SMS calls to action, and email inquiry behavior where applicable.
 
 The contact form prepares a message to `kalmanroller@gmail.com` in either the visitor's default email application or Gmail in the browser. It does not transmit or store form data on the site.
 
@@ -26,4 +26,3 @@ npm run deploy
 ```
 
 The Worker configuration attaches the production Worker to the apex domain as a Cloudflare Custom Domain.
-
