@@ -1,8 +1,11 @@
 import siteWorker from "./worker.js";
 
-const SLING_ORIGIN = "https://britbrae08.github.io/sling/";
+// The FaithWords source currently lives in the repository that was originally
+// created as `sling`. The public product URL is FaithCraft regardless of the
+// temporary GitHub repository path.
+const FAITHWORDS_ORIGIN = "https://britbrae08.github.io/sling/";
 
-async function serveSling(request, url) {
+async function serveFaithWords(request, url) {
   if (request.method !== "GET" && request.method !== "HEAD") {
     return new Response("Method Not Allowed", {
       status: 405,
@@ -10,16 +13,14 @@ async function serveSling(request, url) {
     });
   }
 
-  // Keep one canonical play URL so relative game assets and the PWA service
-  // worker are scoped cleanly beneath /sling/.
-  if (url.pathname === "/sling") {
+  if (url.pathname === "/faithwords") {
     const redirect = new URL(url);
-    redirect.pathname = "/sling/";
+    redirect.pathname = "/faithwords/";
     return Response.redirect(redirect.toString(), 308);
   }
 
-  const relativePath = url.pathname.slice("/sling/".length);
-  const upstreamUrl = new URL(relativePath || "./", SLING_ORIGIN);
+  const relativePath = url.pathname.slice("/faithwords/".length);
+  const upstreamUrl = new URL(relativePath || "./", FAITHWORDS_ORIGIN);
   upstreamUrl.search = url.search;
 
   const upstreamRequest = new Request(upstreamUrl.toString(), {
@@ -30,10 +31,8 @@ async function serveSling(request, url) {
 
   const upstream = await fetch(upstreamRequest);
   const headers = new Headers(upstream.headers);
-
-  // The public-facing product lives at FaithCraft. Keep HTML fresh while
-  // allowing short asset caching for fast mobile play.
   const isHtml = relativePath === "" || relativePath === "index.html";
+
   headers.set("Cache-Control", isHtml ? "no-cache" : "public, max-age=300");
   headers.set("X-Content-Type-Options", "nosniff");
   headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
@@ -51,12 +50,20 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
+    // Retire the old public game path and send any bookmarks to FaithWords.
+    if (url.pathname === "/sling" || url.pathname === "/sling/" || url.pathname.startsWith("/sling/")) {
+      const redirect = new URL(url);
+      redirect.pathname = "/faithwords/";
+      redirect.search = "";
+      return Response.redirect(redirect.toString(), 308);
+    }
+
     if (
-      url.pathname === "/sling" ||
-      url.pathname === "/sling/" ||
-      url.pathname.startsWith("/sling/")
+      url.pathname === "/faithwords" ||
+      url.pathname === "/faithwords/" ||
+      url.pathname.startsWith("/faithwords/")
     ) {
-      return serveSling(request, url);
+      return serveFaithWords(request, url);
     }
 
     return siteWorker.fetch(request, env, ctx);
