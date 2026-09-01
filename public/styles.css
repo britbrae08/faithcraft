@@ -242,6 +242,8 @@ footer { width: var(--container); min-height: 250px; margin: 0 auto; padding: 65
 .footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; }
 .footer-nav a { color: var(--muted); font-size: .61rem; font-weight: 700; letter-spacing: .06em; text-decoration: none; text-transform: uppercase; }
 .footer-nav a:hover, .footer-nav a[aria-current="page"] { color: var(--gold-bright); }
+.reading-journey-link { max-width: 380px; color: var(--ivory); font-size: 1rem; font-weight: 600; line-height: 1.4; text-decoration-color: rgba(229,181,91,.5); text-underline-offset: 4px; }
+.reading-journey-link:hover { color: var(--gold-bright); }
 .footer-contact { display: grid; justify-items: end; gap: 9px; color: var(--gray); font-size: .65rem; }
 .footer-contact a { color: var(--ivory); text-decoration: none; }
 .mobile-cta { display: none; }
