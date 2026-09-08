@@ -1,5 +1,8 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
+const canonicalEmail = "kal@faithcraft.agency";
+const legacyEmails = ["kalmanroller@gmail.com"];
+
 const assets = [
   ["/", "public/index.html", "text/html; charset=UTF-8", "no-cache", false],
   ["/index.html", "public/index.html", "text/html; charset=UTF-8", "no-cache", false],
@@ -30,13 +33,16 @@ const assets = [
   ["/sitemap.xml", "public/sitemap.xml", "application/xml; charset=UTF-8", "public, max-age=3600", false],
 ];
 
+const normalizeContactEmail = (text) =>
+  legacyEmails.reduce((value, email) => value.replaceAll(email, canonicalEmail), text);
+
 const loaded = await Promise.all(
   assets.map(async ([path, file, contentType, cacheControl, binary]) => {
     const body = await readFile(file);
     return [
       path,
       {
-        body: binary ? body.toString("base64") : body.toString("utf8"),
+        body: binary ? body.toString("base64") : normalizeContactEmail(body.toString("utf8")),
         contentType,
         cacheControl,
         encoding: binary ? "base64" : "utf8",
