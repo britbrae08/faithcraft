@@ -1,9 +1,22 @@
 const header = document.querySelector("[data-header]");
 const progress = document.querySelector(".page-progress span");
 const revealItems = document.querySelectorAll("[data-reveal]");
+const contactEmail = "kal@faithcraft.agency";
 
 document.querySelectorAll("[data-year]").forEach((node) => {
   node.textContent = new Date().getFullYear();
+});
+
+document.querySelectorAll('a[href^="mailto:"]').forEach((link) => {
+  const rawHref = link.getAttribute("href") || "";
+  const queryIndex = rawHref.indexOf("?");
+  const query = queryIndex >= 0 ? rawHref.slice(queryIndex) : "";
+  link.setAttribute("href", `mailto:${contactEmail}${query}`);
+  if (link.textContent?.includes("@")) link.textContent = contactEmail;
+});
+
+document.querySelectorAll('form[action^="mailto:"]').forEach((form) => {
+  form.setAttribute("action", `mailto:${contactEmail}`);
 });
 
 const updateScroll = () => {
@@ -57,7 +70,7 @@ document.querySelectorAll("[data-email-form]").forEach((emailForm) => {
     const phone = String(formData.get("phone") || "").trim();
     const promotion = String(formData.get("promotion") || "").trim();
     const message = String(formData.get("message") || "").trim();
-    const destination = "kalmanroller@gmail.com";
+    const destination = contactEmail;
     const isLeadgen = emailForm.dataset.formType === "leadgen";
     const subjectPrefix = emailForm.dataset.subject || "FaithCraft inquiry";
     const subject = `${subjectPrefix} from ${name}`;
@@ -94,4 +107,3 @@ document.querySelectorAll("[data-email-form]").forEach((emailForm) => {
     if (emailStatus) emailStatus.textContent = "Your email app is opening with your message ready to review and send.";
   });
 });
-
