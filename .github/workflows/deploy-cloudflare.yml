@@ -1,3 +1,4 @@
+# FaithCraft Cloudflare deployment workflow
 name: Deploy FaithCraft Worker
 
 on:
