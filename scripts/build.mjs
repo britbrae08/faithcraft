@@ -3,6 +3,44 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 const canonicalEmail = "kal@faithcraft.agency";
 const legacyEmails = ["kalmanroller@gmail.com"];
 
+const canonicalHeader = `    <header class="site-header" data-header>
+      <a class="brand" href="/" aria-label="FaithCraft Agency home">
+        <img class="brand-logo brand-logo-header" src="/faithcraft-logo.jpg" alt="FaithCraft Agency" width="58" height="58" />
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="/">Home</a>
+        <a class="nav-feature" href="/aiadvantage">The AI Advantage</a>
+        <a href="/leadgen">Lead Generator</a>
+        <a href="/#services">What we build</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+      <details class="mobile-nav">
+        <summary aria-label="Open navigation menu">Menu</summary>
+        <nav aria-label="Mobile navigation">
+          <a href="/">Home</a>
+          <a href="/aiadvantage">The AI Advantage</a>
+          <a href="/leadgen">Lead Generator</a>
+          <a href="/#services">What we build</a>
+          <a href="/#contact">Contact</a>
+        </nav>
+      </details>
+      <a class="button button-small button-outline" href="/#contact">Contact FaithCraft</a>
+    </header>`;
+
+const canonicalFooter = `    <footer>
+      <a class="brand brand-footer" href="/" aria-label="FaithCraft Agency home">
+        <img class="brand-logo brand-logo-footer" src="/faithcraft-logo.jpg" alt="FaithCraft Agency" width="112" height="112" loading="lazy" />
+      </a>
+      <div class="footer-center">
+        <p>Strategy. Creativity. Kingdom Impact.</p>
+        <nav class="footer-nav" aria-label="Footer navigation"><a href="/">Home</a><a href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="/#services">What we build</a><a href="/#contact">Contact</a></nav>
+        <a class="reading-journey-link" href="https://tryjesusmedia.com/bibleandconflictoftheages/" target="_blank" rel="noopener noreferrer">Bible and Conflict of the Ages reading journey</a>
+      </div>
+      <div class="footer-contact"><a href="mailto:kal@faithcraft.agency">kal@faithcraft.agency</a><a href="sms:8162596486?body=faithcraft">816-259-6486</a><span>© <span data-year></span> FaithCraft Agency</span></div>
+    </footer>`;
+
+const canonicalMobileCta = `    <a class="mobile-cta" href="sms:8162596486?body=faithcraft"><span>Text “FaithCraft” now</span><b>↗</b></a>`;
+
 const assets = [
   ["/", "public/index.html", "text/html; charset=UTF-8", "no-cache", false],
   ["/index.html", "public/index.html", "text/html; charset=UTF-8", "no-cache", false],
@@ -40,13 +78,32 @@ const assets = [
 const normalizeContactEmail = (text) =>
   legacyEmails.reduce((value, email) => value.replaceAll(email, canonicalEmail), text);
 
+const normalizeSiteShell = (text) => {
+  let value = normalizeContactEmail(text);
+  if (!value.includes("<html")) return value;
+
+  if (value.includes('class="site-header"')) {
+    value = value.replace(/\s*<header class="site-header" data-header>[\s\S]*?<\/header>/, `\n${canonicalHeader}`);
+  }
+
+  if (value.includes("<footer")) {
+    value = value.replace(/\s*<footer(?:\s+class="[^"]*")?>[\s\S]*?<\/footer>/, `\n${canonicalFooter}`);
+  }
+
+  if (value.includes('<script src="/script.js') && !value.includes('class="mobile-cta"')) {
+    value = value.replace(/\s*(<script src="\/script\.js[^>]*><\/script>)/, `\n${canonicalMobileCta}\n    $1`);
+  }
+
+  return value;
+};
+
 const loaded = await Promise.all(
   assets.map(async ([path, file, contentType, cacheControl, binary]) => {
     const body = await readFile(file);
     return [
       path,
       {
-        body: binary ? body.toString("base64") : normalizeContactEmail(body.toString("utf8")),
+        body: binary ? body.toString("base64") : normalizeSiteShell(body.toString("utf8")),
         contentType,
         cacheControl,
         encoding: binary ? "base64" : "utf8",
