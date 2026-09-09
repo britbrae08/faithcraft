@@ -40,7 +40,7 @@ export default {
       })
       .on("footer", {
         element(element) {
-          element.append('<a class="footer-faithwords-link" href="/sling">FatihWords</a>', { html: true });
+          element.append('<a class="footer-faithwords-link" href="/sling">FaithWords</a>', { html: true });
         },
       })
       .transform(response);
