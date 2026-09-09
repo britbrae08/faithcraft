@@ -2,7 +2,7 @@
   // FaithCraft production Worker configuration
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "faithcraft-agency",
-  "main": "src/router.js",
+  "main": "src/footer-router.js",
   "compatibility_date": "2026-08-24",
   "compatibility_flags": ["nodejs_compat"],
   "routes": [
