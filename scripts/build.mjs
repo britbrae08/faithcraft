@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 const canonicalEmail = "kal@faithcraft.agency";
 const legacyEmails = ["kalmanroller@gmail.com"];
-const assetVersion = "20260909-nav-fix-1";
+const assetVersion = "20260909-nav-fix-2";
 
 const canonicalHeader = `    <header class="site-header" data-header>
       <a class="brand" href="/" aria-label="FaithCraft Agency home">
@@ -28,9 +28,10 @@ const canonicalHeader = `    <header class="site-header" data-header>
 
 const sharedNavCriticalStyles = `    <style id="shared-nav-critical">
       @media (max-width: 980px) {
+        .site-header { display: flex !important; align-items: center !important; justify-content: space-between !important; }
         .site-header .desktop-nav { display: none !important; }
-        .site-header .mobile-nav { display: block !important; position: relative; margin-left: auto; margin-right: 14px; }
-        .site-header .mobile-nav summary { min-width: 78px; padding: 10px 14px; border: 1px solid rgba(229,181,91,.5); border-radius: 5px; color: #e5b55b; background: rgba(199,147,65,.06); cursor: pointer; font: 800 .67rem/1.3 Montserrat, Arial, sans-serif; letter-spacing: .08em; list-style: none; text-align: center; text-transform: uppercase; }
+        .site-header .mobile-nav { display: block !important; position: relative; z-index: 1000; margin-left: auto; margin-right: 14px; visibility: visible !important; opacity: 1 !important; }
+        .site-header .mobile-nav summary { display: block !important; visibility: visible !important; opacity: 1 !important; min-width: 78px; padding: 10px 14px; border: 1px solid rgba(229,181,91,.5); border-radius: 5px; color: #e5b55b; background: rgba(199,147,65,.06); cursor: pointer; font: 800 .67rem/1.3 Montserrat, Arial, sans-serif; letter-spacing: .08em; list-style: none; text-align: center; text-transform: uppercase; }
         .site-header .mobile-nav summary::-webkit-details-marker { display: none; }
         .site-header .mobile-nav[open] summary { color: #010c18; background: #e5b55b; }
         .site-header .mobile-nav nav { position: absolute; top: calc(100% + 12px); right: 0; width: min(280px, calc(100vw - 34px)); padding: 9px; display: grid; border: 1px solid rgba(235,233,222,.14); border-radius: 8px; background: rgba(1,12,24,.98); box-shadow: 0 24px 60px rgba(0,0,0,.48); }
@@ -151,8 +152,9 @@ const normalizeSiteShell = (text, path) => {
     value = value.replace(/\s*<\/head>/, `\n${sharedNavCriticalStyles}\n  </head>`);
   }
 
-  if (value.includes('class="site-header"')) {
-    value = value.replace(/\s*<header class="site-header" data-header>[\s\S]*?<\/header>/, `\n${canonicalHeader}`);
+  const headerPattern = /\s*<header\b[^>]*class="[^"]*\bsite-header\b[^"]*"[^>]*>[\s\S]*?<\/header>/;
+  if (headerPattern.test(value)) {
+    value = value.replace(headerPattern, `\n${canonicalHeader}`);
   } else {
     value = value.replace(/(<body[^>]*>)/, `$1\n${canonicalHeader}`);
   }
