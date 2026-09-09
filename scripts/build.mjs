@@ -11,7 +11,6 @@ const canonicalHeader = `    <header class="site-header" data-header>
         <a href="/">Home</a>
         <a class="nav-feature" href="/aiadvantage">The AI Advantage</a>
         <a href="/leadgen">Lead Generator</a>
-        <a href="/#services">What we build</a>
         <a href="/#contact">Contact</a>
       </nav>
       <details class="mobile-nav">
@@ -20,7 +19,6 @@ const canonicalHeader = `    <header class="site-header" data-header>
           <a href="/">Home</a>
           <a href="/aiadvantage">The AI Advantage</a>
           <a href="/leadgen">Lead Generator</a>
-          <a href="/#services">What we build</a>
           <a href="/#contact">Contact</a>
         </nav>
       </details>
@@ -33,7 +31,7 @@ const canonicalFooter = `    <footer>
       </a>
       <div class="footer-center">
         <p>Strategy. Creativity. Kingdom Impact.</p>
-        <nav class="footer-nav" aria-label="Footer navigation"><a href="/">Home</a><a href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="/#services">What we build</a><a href="/#contact">Contact</a></nav>
+        <nav class="footer-nav" aria-label="Footer navigation"><a href="/">Home</a><a href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="/#contact">Contact</a></nav>
         <a class="reading-journey-link" href="https://tryjesusmedia.com/bibleandconflictoftheages/" target="_blank" rel="noopener noreferrer">Bible and Conflict of the Ages reading journey</a>
       </div>
       <div class="footer-contact"><a href="mailto:kal@faithcraft.agency">kal@faithcraft.agency</a><a href="sms:8162596486?body=faithcraft">816-259-6486</a><span>© <span data-year></span> FaithCraft Agency</span></div>
@@ -91,7 +89,7 @@ const assets = [
   ["/leadgen-samples/free-bible-guides-mailer-back.webp", "public/leadgen-samples/free-bible-guides-mailer-back.webp", "image/webp", "public, max-age=604800, immutable", true],
   ["/leadgen-samples/bible-prophecy-series.webp", "public/leadgen-samples/bible-prophecy-series.webp", "image/webp", "public, max-age=604800, immutable", true],
   ["/leadgen-samples/zoom-bible-study-brand.webp", "public/leadgen-samples/zoom-bible-study-brand.webp", "image/webp", "public, max-age=604800, immutable", true],
-  ["/leadgen-samples/live-online-discussion.webp", "public/leadgen-samples/live-online-discussion.webp", "image/webp", "public, max-age=604800, immutable", true],
+  ["/leadgen-samples/live-online-discussion.webp", "public/leadgen-samples/live-decoded.webp", "image/webp", "public, max-age=604800, immutable", true],
   ["/leadgen-samples/follow-up-resource-card.webp", "public/leadgen-samples/follow-up-resource-card.webp", "image/webp", "public, max-age=604800, immutable", true],
   ["/leadgen-samples/healing-journey-follow-up.webp", "public/leadgen-samples/healing-journey-follow-up.webp", "image/webp", "public, max-age=604800, immutable", true],
   ["/leadgen-samples/door-hanger-campaign.webp", "public/leadgen-samples/door-hanger-campaign.webp", "image/webp", "public, max-age=604800, immutable", true],
@@ -127,17 +125,14 @@ const normalizeSiteShell = (text, path) => {
   let value = normalizeContactEmail(text);
   if (!value.includes("<html")) return value;
 
-  // SLING is intentionally a clean game-only page: no shared menu, CTA, or footer.
   if (path === "/sling" || path === "/sling/" || path === "/sling/index.html") return value;
 
-  // Every other HTML page gets the exact same FaithCraft header/menu.
   if (value.includes('class="site-header"')) {
     value = value.replace(/\s*<header class="site-header" data-header>[\s\S]*?<\/header>/, `\n${canonicalHeader}`);
   } else {
     value = value.replace(/(<body[^>]*>)/, `$1\n${canonicalHeader}`);
   }
 
-  // Keep the footer identical on all non-SLING pages too.
   if (value.includes("<footer")) {
     value = value.replace(/\s*<footer(?:\s+class="[^"]*")?>[\s\S]*?<\/footer>/, `\n${canonicalFooter}`);
   } else {
