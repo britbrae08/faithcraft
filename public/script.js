@@ -3,6 +3,17 @@ const progress = document.querySelector(".page-progress span");
 const revealItems = document.querySelectorAll("[data-reveal]");
 const contactEmail = "kal@faithcraft.agency";
 
+// Keep The AI Advantage as the second navigation item across FaithCraft pages.
+document.querySelectorAll(".desktop-nav a:nth-child(2), .mobile-nav nav a:nth-child(2)").forEach((link) => {
+  link.textContent = "The AI Advantage";
+  link.setAttribute("href", "/aiadvantage");
+  if (document.body.classList.contains("ai-page")) {
+    link.setAttribute("aria-current", "page");
+  } else {
+    link.removeAttribute("aria-current");
+  }
+});
+
 document.querySelectorAll("[data-year]").forEach((node) => {
   node.textContent = new Date().getFullYear();
 });
