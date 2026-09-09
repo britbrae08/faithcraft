@@ -123,16 +123,25 @@ const rewriteAnchorButtons = (html, href, label) => {
   return value;
 };
 
-const normalizeSiteShell = (text) => {
+const normalizeSiteShell = (text, path) => {
   let value = normalizeContactEmail(text);
   if (!value.includes("<html")) return value;
 
+  // SLING is intentionally a clean game-only page: no shared menu, CTA, or footer.
+  if (path === "/sling" || path === "/sling/" || path === "/sling/index.html") return value;
+
+  // Every other HTML page gets the exact same FaithCraft header/menu.
   if (value.includes('class="site-header"')) {
     value = value.replace(/\s*<header class="site-header" data-header>[\s\S]*?<\/header>/, `\n${canonicalHeader}`);
+  } else {
+    value = value.replace(/(<body[^>]*>)/, `$1\n${canonicalHeader}`);
   }
 
+  // Keep the footer identical on all non-SLING pages too.
   if (value.includes("<footer")) {
     value = value.replace(/\s*<footer(?:\s+class="[^"]*")?>[\s\S]*?<\/footer>/, `\n${canonicalFooter}`);
+  } else {
+    value = value.replace(/\s*<\/body>/, `\n${canonicalFooter}\n  </body>`);
   }
 
   if (value.includes('<script src="/script.js') && !value.includes('class="mobile-cta"')) {
@@ -163,7 +172,7 @@ const loaded = await Promise.all(
     return [
       path,
       {
-        body: binary ? body.toString("base64") : normalizeSiteShell(body.toString("utf8")),
+        body: binary ? body.toString("base64") : normalizeSiteShell(body.toString("utf8"), path),
         contentType,
         cacheControl,
         encoding: binary ? "base64" : "utf8",
