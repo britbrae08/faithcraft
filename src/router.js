@@ -28,14 +28,51 @@ const runtimeNavStyles = `
   .fc-mobile-menu-panel { display: none; }
 
   @media (max-width: 980px) {
-    .site-header { display: flex !important; align-items: center !important; justify-content: space-between !important; }
+    html,
+    body {
+      width: 100% !important;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
+    }
+
+    .site-header {
+      left: 0 !important;
+      right: 0 !important;
+      width: 100% !important;
+      max-width: 100vw !important;
+      transform: none !important;
+      padding-left: 17px !important;
+      padding-right: 17px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+    }
+
+    .site-header.is-scrolled {
+      left: 10px !important;
+      right: 10px !important;
+      width: auto !important;
+      max-width: calc(100vw - 20px) !important;
+      transform: none !important;
+      padding-left: 14px !important;
+      padding-right: 14px !important;
+    }
+
+    .site-header .brand {
+      flex: 0 0 auto !important;
+      min-width: 0 !important;
+    }
+
     .site-header .desktop-nav { display: none !important; }
+
     .fc-mobile-menu-toggle {
       position: relative !important;
       z-index: 10001 !important;
+      flex: 0 0 auto !important;
       margin-left: auto !important;
-      margin-right: 14px !important;
+      margin-right: 0 !important;
       min-width: 78px !important;
+      max-width: calc(100vw - 110px) !important;
       padding: 10px 14px !important;
       display: flex !important;
       align-items: center !important;
@@ -51,19 +88,24 @@ const runtimeNavStyles = `
       visibility: visible !important;
       opacity: 1 !important;
     }
+
     .fc-mobile-menu-panel {
       position: fixed !important;
       z-index: 10000 !important;
       top: 82px !important;
+      left: 17px !important;
       right: 17px !important;
-      width: min(290px, calc(100vw - 34px)) !important;
+      width: auto !important;
+      max-width: none !important;
       padding: 10px !important;
       border: 1px solid rgba(235,233,222,.18) !important;
       border-radius: 8px !important;
       background: #010c18 !important;
       box-shadow: 0 24px 60px rgba(0,0,0,.55) !important;
     }
+
     #fc-mobile-menu:target { display: grid !important; }
+
     .fc-mobile-menu-panel a {
       padding: 13px 14px !important;
       border-radius: 4px !important;
@@ -73,6 +115,7 @@ const runtimeNavStyles = `
       text-decoration: none !important;
       text-transform: uppercase !important;
     }
+
     .fc-mobile-menu-panel .fc-mobile-menu-close {
       margin-bottom: 4px !important;
       color: #e5b55b !important;
