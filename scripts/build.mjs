@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 const canonicalEmail = "kal@faithcraft.agency";
 const legacyEmails = ["kalmanroller@gmail.com"];
+const assetVersion = "20260909-nav-fix-1";
 
 const canonicalHeader = `    <header class="site-header" data-header>
       <a class="brand" href="/" aria-label="FaithCraft Agency home">
@@ -24,6 +25,19 @@ const canonicalHeader = `    <header class="site-header" data-header>
       </details>
       <a class="button button-small button-outline" href="/#contact">Contact FaithCraft</a>
     </header>`;
+
+const sharedNavCriticalStyles = `    <style id="shared-nav-critical">
+      @media (max-width: 980px) {
+        .site-header .desktop-nav { display: none !important; }
+        .site-header .mobile-nav { display: block !important; position: relative; margin-left: auto; margin-right: 14px; }
+        .site-header .mobile-nav summary { min-width: 78px; padding: 10px 14px; border: 1px solid rgba(229,181,91,.5); border-radius: 5px; color: #e5b55b; background: rgba(199,147,65,.06); cursor: pointer; font: 800 .67rem/1.3 Montserrat, Arial, sans-serif; letter-spacing: .08em; list-style: none; text-align: center; text-transform: uppercase; }
+        .site-header .mobile-nav summary::-webkit-details-marker { display: none; }
+        .site-header .mobile-nav[open] summary { color: #010c18; background: #e5b55b; }
+        .site-header .mobile-nav nav { position: absolute; top: calc(100% + 12px); right: 0; width: min(280px, calc(100vw - 34px)); padding: 9px; display: grid; border: 1px solid rgba(235,233,222,.14); border-radius: 8px; background: rgba(1,12,24,.98); box-shadow: 0 24px 60px rgba(0,0,0,.48); }
+        .site-header .mobile-nav nav a { padding: 13px 14px; border-radius: 4px; color: #ebe9de; font: 700 .72rem/1.4 Montserrat, Arial, sans-serif; letter-spacing: .05em; text-decoration: none; text-transform: uppercase; }
+      }
+      @media (max-width: 760px) { .site-header > .button { display: none !important; } }
+    </style>`;
 
 const canonicalFooter = `    <footer>
       <a class="brand brand-footer" href="/" aria-label="FaithCraft Agency home">
@@ -79,10 +93,10 @@ const assets = [
   ["/sling", "public/sling/index.html", "text/html; charset=UTF-8", "no-cache", false],
   ["/sling/", "public/sling/index.html", "text/html; charset=UTF-8", "no-cache", false],
   ["/sling/index.html", "public/sling/index.html", "text/html; charset=UTF-8", "no-cache", false],
-  ["/styles.css", "public/styles.css", "text/css; charset=UTF-8", "public, max-age=3600", false],
-  ["/aiadvantage.css", "public/aiadvantage.css", "text/css; charset=UTF-8", "public, max-age=3600", false],
-  ["/leadgen.css", "public/leadgen.css", "text/css; charset=UTF-8", "public, max-age=3600", false],
-  ["/script.js", "public/script.js", "text/javascript; charset=UTF-8", "public, max-age=3600", false],
+  ["/styles.css", "public/styles.css", "text/css; charset=UTF-8", "no-cache", false],
+  ["/aiadvantage.css", "public/aiadvantage.css", "text/css; charset=UTF-8", "no-cache", false],
+  ["/leadgen.css", "public/leadgen.css", "text/css; charset=UTF-8", "no-cache", false],
+  ["/script.js", "public/script.js", "text/javascript; charset=UTF-8", "no-cache", false],
   ["/faithcraft-logo.jpg", "public/faithcraft-logo.jpg", "image/jpeg", "public, max-age=604800, immutable", true],
   ["/leadgen-samples/bible-decoded.webp", "public/leadgen-samples/bible-decoded.webp", "image/webp", "public, max-age=604800, immutable", true],
   ["/leadgen-samples/free-bible-guides-mailer-front.webp", "public/leadgen-samples/free-bible-guides-mailer-front.webp", "image/webp", "public, max-age=604800, immutable", true],
@@ -126,6 +140,16 @@ const normalizeSiteShell = (text, path) => {
   if (!value.includes("<html")) return value;
 
   if (path === "/sling" || path === "/sling/" || path === "/sling/index.html") return value;
+
+  value = value
+    .replace(/\/styles\.css(?:\?v=[^"]*)?/g, `/styles.css?v=${assetVersion}`)
+    .replace(/\/aiadvantage\.css(?:\?v=[^"]*)?/g, `/aiadvantage.css?v=${assetVersion}`)
+    .replace(/\/leadgen\.css(?:\?v=[^"]*)?/g, `/leadgen.css?v=${assetVersion}`)
+    .replace(/\/script\.js(?:\?v=[^"]*)?/g, `/script.js?v=${assetVersion}`);
+
+  if (!value.includes('id="shared-nav-critical"')) {
+    value = value.replace(/\s*<\/head>/, `\n${sharedNavCriticalStyles}\n  </head>`);
+  }
 
   if (value.includes('class="site-header"')) {
     value = value.replace(/\s*<header class="site-header" data-header>[\s\S]*?<\/header>/, `\n${canonicalHeader}`);
