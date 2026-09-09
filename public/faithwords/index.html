@@ -1,41 +1,83 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#fbf4e8" />
-  <meta name="description" content="Play FaithWords — find words and uncover Scripture." />
-  <title>FaithWords | FaithCraft</title>
-  <style>
-    * { box-sizing: border-box; }
-    html, body { width: 100%; min-height: 100%; margin: 0; background: #fbf4e8; }
-    body { min-height: 100dvh; overflow: hidden; }
-    iframe {
-      display: block;
-      width: 100vw;
-      height: 100dvh;
-      border: 0;
-      background: #fbf4e8;
-    }
-    .fallback {
-      position: fixed;
-      inset: auto 12px max(12px, env(safe-area-inset-bottom)) 12px;
-      z-index: 2;
-      text-align: center;
-      pointer-events: none;
-      font: 600 12px/1.35 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: transparent;
-    }
-    .fallback a { pointer-events: auto; color: inherit; }
-  </style>
-</head>
-<body>
-  <iframe
-    src="https://britbrae08.github.io/sling/"
-    title="Play FaithWords"
-    allow="fullscreen"
-    loading="eager"
-  ></iframe>
-  <p class="fallback">If FaithWords does not appear, <a href="https://britbrae08.github.io/sling/">open it directly</a>.</p>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#010c18" />
+    <meta name="description" content="Play FaithWords — find words and uncover Scripture." />
+    <title>FaithWords | FaithCraft</title>
+    <link rel="icon" href="/faithcraft-logo.jpg" type="image/jpeg" />
+    <link rel="apple-touch-icon" href="/faithcraft-logo.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css?v=20260909-1" />
+    <style>
+      .faithwords-shell { width: var(--container); margin: 0 auto; padding: 104px 0 34px; }
+      .faithwords-frame { width: 100%; height: min(900px, calc(100dvh - 138px)); min-height: 620px; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: #fbf4e8; box-shadow: 0 28px 80px rgba(0,0,0,.35); }
+      .faithwords-frame iframe { display: block; width: 100%; height: 100%; border: 0; background: #fbf4e8; }
+      .faithwords-fallback { margin: 14px 0 0; color: var(--muted); font-size: .72rem; text-align: center; }
+      .faithwords-fallback a { color: var(--gold-bright); }
+      @media (max-width: 760px) {
+        .faithwords-shell { width: 100%; padding: 82px 0 0; }
+        .faithwords-frame { height: calc(100dvh - 82px); min-height: 0; border: 0; border-radius: 0; box-shadow: none; }
+        .faithwords-fallback { padding: 0 17px; }
+      }
+    </style>
+  </head>
+  <body class="faithwords-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="page-progress" aria-hidden="true"><span></span></div>
+
+    <header class="site-header" data-header>
+      <a class="brand" href="/" aria-label="FaithCraft Agency home">
+        <img class="brand-logo brand-logo-header" src="/faithcraft-logo.jpg" alt="FaithCraft Agency" width="58" height="58" />
+      </a>
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="/">Home</a>
+        <a class="nav-feature" href="/aiadvantage">The AI Advantage</a>
+        <a href="/leadgen">Lead Generator</a>
+        <a href="/#services">What we build</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+      <details class="mobile-nav">
+        <summary aria-label="Open navigation menu">Menu</summary>
+        <nav aria-label="Mobile navigation">
+          <a href="/">Home</a>
+          <a href="/aiadvantage">The AI Advantage</a>
+          <a href="/leadgen">Lead Generator</a>
+          <a href="/#services">What we build</a>
+          <a href="/#contact">Contact</a>
+        </nav>
+      </details>
+      <a class="button button-small button-outline" href="/#contact">Contact FaithCraft</a>
+    </header>
+
+    <main id="main" class="faithwords-shell">
+      <div class="faithwords-frame">
+        <iframe
+          src="https://britbrae08.github.io/sling/"
+          title="Play FaithWords"
+          allow="fullscreen"
+          loading="eager"
+        ></iframe>
+      </div>
+      <p class="faithwords-fallback">If FaithWords does not appear, <a href="https://britbrae08.github.io/sling/" target="_blank" rel="noopener noreferrer">open it directly</a>.</p>
+    </main>
+
+    <footer>
+      <a class="brand brand-footer" href="/" aria-label="FaithCraft Agency home">
+        <img class="brand-logo brand-logo-footer" src="/faithcraft-logo.jpg" alt="FaithCraft Agency" width="112" height="112" loading="lazy" />
+      </a>
+      <div class="footer-center">
+        <p>Strategy. Creativity. Kingdom Impact.</p>
+        <nav class="footer-nav" aria-label="Footer navigation"><a href="/">Home</a><a href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="/#services">What we build</a><a href="/#contact">Contact</a></nav>
+        <a class="reading-journey-link" href="https://tryjesusmedia.com/bibleandconflictoftheages/" target="_blank" rel="noopener noreferrer">Bible and Conflict of the Ages reading journey</a>
+      </div>
+      <div class="footer-contact"><a href="mailto:kal@faithcraft.agency">kal@faithcraft.agency</a><a href="sms:8162596486?body=faithcraft">816-259-6486</a><span>© <span data-year></span> FaithCraft Agency</span></div>
+    </footer>
+
+    <a class="mobile-cta" href="sms:8162596486?body=faithcraft"><span>Text “FaithCraft” now</span><b>↗</b></a>
+    <script src="/script.js?v=20260909-1" defer></script>
+  </body>
 </html>
