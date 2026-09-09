@@ -6,6 +6,9 @@ const legacyEmails = ["kalmanroller@gmail.com"];
 const assets = [
   ["/", "public/index.html", "text/html; charset=UTF-8", "no-cache", false],
   ["/index.html", "public/index.html", "text/html; charset=UTF-8", "no-cache", false],
+  ["/aiadvantage", "public/aiadvantage/index.html", "text/html; charset=UTF-8", "no-cache", false],
+  ["/aiadvantage/", "public/aiadvantage/index.html", "text/html; charset=UTF-8", "no-cache", false],
+  ["/aiadvantage/index.html", "public/aiadvantage/index.html", "text/html; charset=UTF-8", "no-cache", false],
   ["/leadgen", "public/leadgen/index.html", "text/html; charset=UTF-8", "no-cache", false],
   ["/leadgen/", "public/leadgen/index.html", "text/html; charset=UTF-8", "no-cache", false],
   ["/leadgen/index.html", "public/leadgen/index.html", "text/html; charset=UTF-8", "no-cache", false],
@@ -16,6 +19,7 @@ const assets = [
   ["/sling/", "public/sling/index.html", "text/html; charset=UTF-8", "no-cache", false],
   ["/sling/index.html", "public/sling/index.html", "text/html; charset=UTF-8", "no-cache", false],
   ["/styles.css", "public/styles.css", "text/css; charset=UTF-8", "public, max-age=3600", false],
+  ["/aiadvantage.css", "public/aiadvantage.css", "text/css; charset=UTF-8", "public, max-age=3600", false],
   ["/leadgen.css", "public/leadgen.css", "text/css; charset=UTF-8", "public, max-age=3600", false],
   ["/script.js", "public/script.js", "text/javascript; charset=UTF-8", "public, max-age=3600", false],
   ["/faithcraft-logo.jpg", "public/faithcraft-logo.jpg", "image/jpeg", "public, max-age=604800, immutable", true],
