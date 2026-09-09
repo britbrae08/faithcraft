@@ -38,3 +38,5 @@ jobs:
           git add src/worker.js
           git commit -m "Build FaithCraft Worker"
           git push
+
+# Rebuild trigger: publish the AI Advantage landing page.
