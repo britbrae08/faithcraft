@@ -3,15 +3,14 @@ const progress = document.querySelector(".page-progress span");
 const revealItems = document.querySelectorAll("[data-reveal]");
 const contactEmail = "kal@faithcraft.agency";
 
-// Keep The AI Advantage as the second navigation item across FaithCraft pages.
-document.querySelectorAll(".desktop-nav a:nth-child(2), .mobile-nav nav a:nth-child(2)").forEach((link) => {
-  link.textContent = "The AI Advantage";
-  link.setAttribute("href", "/aiadvantage");
-  if (document.body.classList.contains("ai-page")) {
-    link.setAttribute("aria-current", "page");
-  } else {
-    link.removeAttribute("aria-current");
-  }
+const currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
+const currentSection = currentPath === "/" ? "/" : currentPath;
+
+document.querySelectorAll(".desktop-nav a, .mobile-nav nav a, .footer-nav a").forEach((link) => {
+  link.removeAttribute("aria-current");
+  const href = link.getAttribute("href") || "";
+  const hrefPath = href.startsWith("/") ? href.split("#")[0].replace(/\/+$/, "") || "/" : "";
+  if (hrefPath && hrefPath === currentSection) link.setAttribute("aria-current", "page");
 });
 
 document.querySelectorAll("[data-year]").forEach((node) => {
@@ -33,8 +32,8 @@ document.querySelectorAll('form[action^="mailto:"]').forEach((form) => {
 const updateScroll = () => {
   const scrollable = document.documentElement.scrollHeight - window.innerHeight;
   const ratio = scrollable > 0 ? window.scrollY / scrollable : 0;
-  progress.style.transform = `scaleX(${Math.min(1, Math.max(0, ratio))})`;
-  header.classList.toggle("is-scrolled", window.scrollY > 24);
+  if (progress) progress.style.transform = `scaleX(${Math.min(1, Math.max(0, ratio))})`;
+  header?.classList.toggle("is-scrolled", window.scrollY > 24);
 };
 
 updateScroll();
