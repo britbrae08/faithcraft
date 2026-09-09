@@ -5,14 +5,24 @@ const isSlingPath = (pathname) =>
 
 const footerFaithWordsStyles = `
 <style id="faithcraft-footer-faithwords-style">
+  .footer-contact > span:not(.footer-meta-line) {
+    display: none !important;
+  }
+  .footer-meta-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
   .footer-faithwords-link {
     display: inline-block;
-    margin-top: 10px;
+    padding-left: 8px;
+    border-left: 1px solid currentColor;
     color: inherit;
-    opacity: .62;
-    font-size: .68rem;
-    line-height: 1.4;
-    letter-spacing: .04em;
+    opacity: .68;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
     text-decoration: none;
   }
   .footer-faithwords-link:hover,
@@ -32,15 +42,17 @@ export default {
       return response;
     }
 
+    const year = new Date().getFullYear();
+
     return new HTMLRewriter()
       .on("head", {
         element(element) {
           element.append(footerFaithWordsStyles, { html: true });
         },
       })
-      .on("footer", {
+      .on(".footer-contact", {
         element(element) {
-          element.append('<a class="footer-faithwords-link" href="/sling">FaithWords</a>', { html: true });
+          element.append(`<span class="footer-meta-line">© ${year} FaithCraft <a class="footer-faithwords-link" href="/sling">FaithWords</a></span>`, { html: true });
         },
       })
       .transform(response);
