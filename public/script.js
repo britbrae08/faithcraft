@@ -6,6 +6,32 @@ const contactEmail = "kal@faithcraft.agency";
 const currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
 const currentSection = currentPath === "/" ? "/" : currentPath;
 
+const syncNavigationMode = () => {
+  const useMobileNav = window.innerWidth <= 980;
+
+  document.querySelectorAll(".mobile-nav").forEach((menu) => {
+    menu.style.setProperty("display", useMobileNav ? "block" : "none", "important");
+    if (useMobileNav) {
+      menu.style.setProperty("visibility", "visible", "important");
+      menu.style.setProperty("opacity", "1", "important");
+      const summary = menu.querySelector("summary");
+      summary?.style.setProperty("display", "block", "important");
+      summary?.style.setProperty("visibility", "visible", "important");
+      summary?.style.setProperty("opacity", "1", "important");
+    } else {
+      menu.removeAttribute("open");
+    }
+  });
+
+  document.querySelectorAll(".desktop-nav").forEach((nav) => {
+    nav.style.setProperty("display", useMobileNav ? "none" : "flex", "important");
+  });
+};
+
+syncNavigationMode();
+window.addEventListener("resize", syncNavigationMode, { passive: true });
+window.addEventListener("orientationchange", syncNavigationMode, { passive: true });
+
 document.querySelectorAll(".desktop-nav a, .mobile-nav nav a, .footer-nav a").forEach((link) => {
   link.removeAttribute("aria-current");
   const href = link.getAttribute("href") || "";
