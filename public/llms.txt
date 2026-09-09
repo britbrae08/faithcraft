@@ -1,0 +1,28 @@
+# FaithCraft
+
+> FaithCraft is a Christian digital marketing and AI strategy agency helping churches, ministries, Christian businesses, creators, and faith-driven entrepreneurs improve visibility, trust, lead generation, websites, branding, content, and marketing workflows.
+
+Canonical site: https://faithcraft.agency/
+Contact: kal@faithcraft.agency
+
+## Primary pages
+
+- https://faithcraft.agency/ — FaithCraft Christian digital marketing agency
+- https://faithcraft.agency/christian-digital-marketing — Christian digital marketing services
+- https://faithcraft.agency/christian-web-design — Christian web design for churches, ministries, and businesses
+- https://faithcraft.agency/christian-branding — Christian branding and brand strategy
+- https://faithcraft.agency/marketing-for-ministries — Digital marketing for churches and ministries
+- https://faithcraft.agency/marketing-for-christian-businesses — Marketing for Christian businesses
+- https://faithcraft.agency/ai-marketing — AI marketing for Christian entrepreneurs and small businesses
+- https://faithcraft.agency/aiadvantage — The AI Advantage: practical AI strategy and marketing leverage
+- https://faithcraft.agency/leadgen — Bible study lead generation for churches and ministries
+- https://faithcraft.agency/faithwords/ — FaithWords
+
+## Entity and positioning
+
+FaithCraft combines Christian digital marketing, web design, branding, lead generation, content strategy, and human-directed AI workflows. The agency serves faith-driven organizations and entrepreneurs and emphasizes clear messaging, responsible stewardship of technology, human judgment, and measurable digital growth.
+
+## Crawling
+
+Robots: https://faithcraft.agency/robots.txt
+Sitemap: https://faithcraft.agency/sitemap.xml
