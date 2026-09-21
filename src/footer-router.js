@@ -1,5 +1,7 @@
 import app from "./router.js";
 
+const bookingUrl = "https://calendly.com/kalroller/kal";
+
 const isSlingPath = (pathname) =>
   pathname === "/sling" || pathname === "/sling/" || pathname === "/sling/index.html";
 
@@ -59,6 +61,53 @@ const seoStyles = `
   .seo-related-grid span { color:#999892; font-size:.69rem; line-height:1.45; }
   @media(max-width:900px){ .seo-service-grid,.seo-related-grid{grid-template-columns:1fr 1fr}.seo-content-grid{grid-template-columns:1fr;gap:38px}.seo-side{position:static} }
   @media(max-width:600px){ .seo-service-links{padding:70px 0 88px}.seo-service-grid,.seo-related-grid{grid-template-columns:1fr}.seo-hero{padding:86px 0 68px}.seo-content{padding:68px 0 90px} }
+</style>`;
+
+
+const bookingStickyStyles = `
+<style id="faithcraft-booking-sticky">
+  body.has-booking-sticky { padding-bottom: 88px !important; }
+  .site-booking-sticky {
+    position: fixed;
+    z-index: 25000;
+    right: 18px;
+    bottom: 18px;
+    min-height: 58px;
+    max-width: 430px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 8px;
+    color: #010c18;
+    background: linear-gradient(135deg,#e5b55b,#c79341);
+    box-shadow: 0 18px 55px rgba(0,0,0,.42);
+    font: 800 .72rem/1.35 Montserrat,Arial,sans-serif;
+    letter-spacing: .045em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .site-booking-sticky:hover,
+  .site-booking-sticky:focus-visible { transform: translateY(-2px); box-shadow: 0 22px 65px rgba(0,0,0,.5); }
+  .site-booking-sticky b { flex: 0 0 auto; font-size: 1rem; }
+  @media (max-width:760px) {
+    body.has-booking-sticky { padding-bottom: 78px !important; }
+    .site-booking-sticky {
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      max-width: none;
+      min-height: 58px;
+      padding: 0 18px;
+      border-radius: 7px;
+      font-size: .69rem;
+    }
+  }
+  @media (prefers-reduced-motion:reduce) {
+    .site-booking-sticky { transition: none !important; }
+  }
 </style>`;
 
 const criticalMobileNav = `
@@ -176,7 +225,7 @@ const canonicalHeader = `
   <a class="brand" href="/" aria-label="FaithCraft home"><img class="brand-logo brand-logo-header" src="/faithcraft-logo.jpg" alt="FaithCraft" width="58" height="58" /></a>
   <nav class="desktop-nav" aria-label="Primary navigation"><a href="/">Home</a><a class="nav-feature" href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="/#contact">Contact</a></nav>
   <details class="mobile-nav"><summary aria-label="Open navigation menu">Menu</summary><nav aria-label="Mobile navigation"><a href="/">Home</a><a href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="/#contact">Contact</a></nav></details>
-  <a class="button button-small button-outline" href="/#contact">Contact FaithCraft</a>
+  <a class="button button-small button-outline" href="${bookingUrl}" target="_blank" rel="noopener noreferrer">Book a Free Call</a>
 </header>`;
 
 const canonicalFooter = `
@@ -220,8 +269,8 @@ const servicePage = (path, data) => {
   <a class="skip-link" href="#main">Skip to content</a>
   ${canonicalHeader}
   <main id="main">
-    <section class="seo-hero"><div class="seo-wrap"><div class="seo-crumbs"><a href="/">Home</a> / ${data.eyebrow}</div><span class="seo-eyebrow">${data.eyebrow}</span><h1>${data.h1}</h1><p class="seo-lead">${data.lead}</p><div class="seo-cta-row"><a class="button button-primary" href="/#contact"><span class="button-icon" aria-hidden="true">↗</span>Contact FaithCraft</a><a class="button button-outline" href="/aiadvantage">Explore The AI Advantage</a></div></div></section>
-    <section class="seo-content"><div class="seo-wrap"><div class="seo-content-grid"><article class="seo-copy"><h2>${data.heading}</h2><p>${data.intro}</p>${data.sections.map(([heading,copy,items]) => `<h3>${heading}</h3><p>${copy}</p>${items.length ? `<ul>${items.map(item => `<li>${item}</li>`).join("")}</ul>` : ""}`).join("")}<h3>Make the next step simple</h3><p>If you know exactly what you need, we can talk about the build. If you do not, bring the business, ministry, bottleneck, or idea and we can identify the highest-leverage place to start.</p></article><aside class="seo-side"><strong>FaithCraft</strong><p>Strategy, creativity, technology, and AI-assisted execution for churches, ministries, Christian businesses, and faith-driven entrepreneurs.</p><a class="button button-primary" href="/#contact">Start a conversation</a></aside></div><div class="seo-related"><h2>Related FaithCraft services</h2><div class="seo-related-grid">${related.map(([href,name,copy]) => `<a href="${href}"><b>${name}</b><span>${copy}</span></a>`).join("")}<a href="/leadgen"><b>Bible Study Lead Generation</b><span>Outreach systems for churches and ministries.</span></a><a href="/aiadvantage"><b>The AI Advantage</b><span>Practical AI strategy for faster, leaner marketing.</span></a></div></div></div></section>
+    <section class="seo-hero"><div class="seo-wrap"><div class="seo-crumbs"><a href="/">Home</a> / ${data.eyebrow}</div><span class="seo-eyebrow">${data.eyebrow}</span><h1>${data.h1}</h1><p class="seo-lead">${data.lead}</p><div class="seo-cta-row"><a class="button button-primary" href="${bookingUrl}" target="_blank" rel="noopener noreferrer"><span class="button-icon" aria-hidden="true">↗</span>Book a Free Call + Get the AI Advantage Guide</a><a class="button button-outline" href="/aiadvantage">Explore The AI Advantage</a></div></div></section>
+    <section class="seo-content"><div class="seo-wrap"><div class="seo-content-grid"><article class="seo-copy"><h2>${data.heading}</h2><p>${data.intro}</p>${data.sections.map(([heading,copy,items]) => `<h3>${heading}</h3><p>${copy}</p>${items.length ? `<ul>${items.map(item => `<li>${item}</li>`).join("")}</ul>` : ""}`).join("")}<h3>Bring the goal. Let’s talk it through.</h3><p>You do not need a polished brief or all the answers first. Book a free FaithCraft call, bring the business, ministry, bottleneck, or idea, and we’ll help you identify a practical next step. When you book, you’ll also get the free AI Advantage guide.</p></article><aside class="seo-side"><strong>FaithCraft</strong><p>Strategy, creativity, technology, and AI-assisted execution for churches, ministries, Christian businesses, and faith-driven entrepreneurs.</p><a class="button button-primary" href="${bookingUrl}" target="_blank" rel="noopener noreferrer">Book Your Free Call</a></aside></div><div class="seo-related"><h2>Related FaithCraft services</h2><div class="seo-related-grid">${related.map(([href,name,copy]) => `<a href="${href}"><b>${name}</b><span>${copy}</span></a>`).join("")}<a href="/leadgen"><b>Bible Study Lead Generation</b><span>Outreach systems for churches and ministries.</span></a><a href="/aiadvantage"><b>The AI Advantage</b><span>Practical AI strategy for faster, leaner marketing.</span></a></div></div></div></section>
   </main>
   ${canonicalFooter}
   <script src="/script.js"></script>
@@ -298,13 +347,34 @@ export default {
     const year = new Date().getFullYear();
     const seo = seoByPath[path];
     const isGuide = path === "/aiadvantage/guide";
+    const isGame = path === "/sling" || path === "/faithwords";
+    const showBookingSticky = !isGuide && !isGame;
+    const stickyHref = path === "/aiadvantage" ? "#calendar" : bookingUrl;
+    const stickyLabel = path === "/aiadvantage"
+      ? "Book a Free AI Advice Call"
+      : "Book a Free Call + Get the AI Advantage Guide";
 
     let rewriter = new HTMLRewriter()
       .on("head", {
         element(element) {
-          element.append(footerFaithWordsStyles + seoStyles, { html: true });
+          element.append(footerFaithWordsStyles + seoStyles + bookingStickyStyles, { html: true });
           if (seo) element.append(schemaMarkup(path, seo), { html: true });
           if (isGuide) element.append('<meta name="robots" content="noindex,follow" />', { html: true });
+        },
+      })
+      .on(".mobile-cta", {
+        element(element) {
+          element.remove();
+        },
+      })
+      .on("body", {
+        element(element) {
+          if (!showBookingSticky) return;
+          const existingClass = element.getAttribute("class") || "";
+          element.setAttribute("class", `${existingClass} has-booking-sticky`.trim());
+          const external = stickyHref.startsWith("http");
+          const attrs = external ? ' target="_blank" rel="noopener noreferrer"' : "";
+          element.append(`<a class="site-booking-sticky" href="${stickyHref}"${attrs}><span>${stickyLabel}</span><b aria-hidden="true">↗</b></a>`, { html: true });
         },
       })
       .on(".footer-contact", {
