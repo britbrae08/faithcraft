@@ -1,6 +1,6 @@
 import app from "./router.js";
 
-const bookingUrl = "https://calendly.com/kalroller/kal";
+const bookingUrl = "https://faithcraft.agency/aiadvantage#calendar";
 
 const isSlingPath = (pathname) =>
   pathname === "/sling" || pathname === "/sling/" || pathname === "/sling/index.html";
@@ -223,15 +223,15 @@ const serviceOrder = [
 const canonicalHeader = `
 <header class="site-header" data-header>
   <a class="brand" href="/" aria-label="FaithCraft home"><img class="brand-logo brand-logo-header" src="/faithcraft-logo.jpg" alt="FaithCraft" width="58" height="58" /></a>
-  <nav class="desktop-nav" aria-label="Primary navigation"><a href="/">Home</a><a class="nav-feature" href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="/#contact">Contact</a></nav>
-  <details class="mobile-nav"><summary aria-label="Open navigation menu">Menu</summary><nav aria-label="Mobile navigation"><a href="/">Home</a><a href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="/#contact">Contact</a></nav></details>
-  <a class="button button-small button-outline" href="${bookingUrl}" target="_blank" rel="noopener noreferrer">Book a Free Call</a>
+  <nav class="desktop-nav" aria-label="Primary navigation"><a href="/">Home</a><a class="nav-feature" href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="${bookingUrl}">Book a Call</a></nav>
+  <details class="mobile-nav"><summary aria-label="Open navigation menu">Menu</summary><nav aria-label="Mobile navigation"><a href="/">Home</a><a href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="${bookingUrl}">Book a Call</a></nav></details>
+  <a class="button button-small button-outline" href="${bookingUrl}">Book a Free Call</a>
 </header>`;
 
 const canonicalFooter = `
 <footer>
   <a class="brand brand-footer" href="/" aria-label="FaithCraft home"><img class="brand-logo brand-logo-footer" src="/faithcraft-logo.jpg" alt="FaithCraft" width="112" height="112" loading="lazy" /></a>
-  <div class="footer-center"><p>Strategy. Creativity. Kingdom Impact.</p><nav class="footer-nav" aria-label="Footer navigation"><a href="/">Home</a><a href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="/#contact">Contact</a></nav><a class="reading-journey-link" href="https://tryjesusmedia.com/bibleandconflictoftheages/" target="_blank" rel="noopener noreferrer">Bible and Conflict of the Ages reading journey</a></div>
+  <div class="footer-center"><p>Strategy. Creativity. Kingdom Impact.</p><nav class="footer-nav" aria-label="Footer navigation"><a href="/">Home</a><a href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="${bookingUrl}">Book a Call</a></nav><a class="reading-journey-link" href="https://tryjesusmedia.com/bibleandconflictoftheages/" target="_blank" rel="noopener noreferrer">Bible and Conflict of the Ages reading journey</a></div>
   <div class="footer-contact"><a href="mailto:kal@faithcraft.agency">kal@faithcraft.agency</a><a href="sms:8162596486?body=faithcraft">816-259-6486</a><span>© <span data-year></span> FaithCraft</span></div>
 </footer>`;
 
@@ -269,8 +269,8 @@ const servicePage = (path, data) => {
   <a class="skip-link" href="#main">Skip to content</a>
   ${canonicalHeader}
   <main id="main">
-    <section class="seo-hero"><div class="seo-wrap"><div class="seo-crumbs"><a href="/">Home</a> / ${data.eyebrow}</div><span class="seo-eyebrow">${data.eyebrow}</span><h1>${data.h1}</h1><p class="seo-lead">${data.lead}</p><div class="seo-cta-row"><a class="button button-primary" href="${bookingUrl}" target="_blank" rel="noopener noreferrer"><span class="button-icon" aria-hidden="true">↗</span>Book a Free Call + Get the AI Advantage Guide</a><a class="button button-outline" href="/aiadvantage">Explore The AI Advantage</a></div></div></section>
-    <section class="seo-content"><div class="seo-wrap"><div class="seo-content-grid"><article class="seo-copy"><h2>${data.heading}</h2><p>${data.intro}</p>${data.sections.map(([heading,copy,items]) => `<h3>${heading}</h3><p>${copy}</p>${items.length ? `<ul>${items.map(item => `<li>${item}</li>`).join("")}</ul>` : ""}`).join("")}<h3>Bring the goal. Let’s talk it through.</h3><p>You do not need a polished brief or all the answers first. Book a free FaithCraft call, bring the business, ministry, bottleneck, or idea, and we’ll help you identify a practical next step. When you book, you’ll also get the free AI Advantage guide.</p></article><aside class="seo-side"><strong>FaithCraft</strong><p>Strategy, creativity, technology, and AI-assisted execution for churches, ministries, Christian businesses, and faith-driven entrepreneurs.</p><a class="button button-primary" href="${bookingUrl}" target="_blank" rel="noopener noreferrer">Book Your Free Call</a></aside></div><div class="seo-related"><h2>Related FaithCraft services</h2><div class="seo-related-grid">${related.map(([href,name,copy]) => `<a href="${href}"><b>${name}</b><span>${copy}</span></a>`).join("")}<a href="/leadgen"><b>Bible Study Lead Generation</b><span>Outreach systems for churches and ministries.</span></a><a href="/aiadvantage"><b>The AI Advantage</b><span>Practical AI strategy for faster, leaner marketing.</span></a></div></div></div></section>
+    <section class="seo-hero"><div class="seo-wrap"><div class="seo-crumbs"><a href="/">Home</a> / ${data.eyebrow}</div><span class="seo-eyebrow">${data.eyebrow}</span><h1>${data.h1}</h1><p class="seo-lead">${data.lead}</p><div class="seo-cta-row"><a class="button button-primary" href="${bookingUrl}"><span class="button-icon" aria-hidden="true">↗</span>Book a Free Call + Get the AI Advantage Guide</a><a class="button button-outline" href="/aiadvantage">Explore The AI Advantage</a></div></div></section>
+    <section class="seo-content"><div class="seo-wrap"><div class="seo-content-grid"><article class="seo-copy"><h2>${data.heading}</h2><p>${data.intro}</p>${data.sections.map(([heading,copy,items]) => `<h3>${heading}</h3><p>${copy}</p>${items.length ? `<ul>${items.map(item => `<li>${item}</li>`).join("")}</ul>` : ""}`).join("")}<h3>Bring the goal. Let’s talk it through.</h3><p>You do not need a polished brief or all the answers first. Book a free FaithCraft call, bring the business, ministry, bottleneck, or idea, and we’ll help you identify a practical next step. When you book, you’ll also get the free AI Advantage guide.</p></article><aside class="seo-side"><strong>FaithCraft</strong><p>Strategy, creativity, technology, and AI-assisted execution for churches, ministries, Christian businesses, and faith-driven entrepreneurs.</p><a class="button button-primary" href="${bookingUrl}">Book Your Free Call</a></aside></div><div class="seo-related"><h2>Related FaithCraft services</h2><div class="seo-related-grid">${related.map(([href,name,copy]) => `<a href="${href}"><b>${name}</b><span>${copy}</span></a>`).join("")}<a href="/leadgen"><b>Bible Study Lead Generation</b><span>Outreach systems for churches and ministries.</span></a><a href="/aiadvantage"><b>The AI Advantage</b><span>Practical AI strategy for faster, leaner marketing.</span></a></div></div></div></section>
   </main>
   ${canonicalFooter}
   <script src="/script.js"></script>
@@ -349,7 +349,7 @@ export default {
     const isGuide = path === "/aiadvantage/guide";
     const isGame = path === "/sling" || path === "/faithwords";
     const showBookingSticky = !isGame;
-    const stickyHref = isGuide ? "#call-reminder" : (path === "/aiadvantage" ? "#calendar" : bookingUrl);
+    const stickyHref = isGuide ? "#call-reminder" : bookingUrl;
     const stickyLabel = isGuide
       ? "You’re Booked — Prepare for Your Call"
       : (path === "/aiadvantage" ? "Book a Free AI Advice Call" : "Book a Free Call + Get the AI Advantage Guide");
@@ -372,9 +372,7 @@ export default {
           if (!showBookingSticky) return;
           const existingClass = element.getAttribute("class") || "";
           element.setAttribute("class", `${existingClass} has-booking-sticky`.trim());
-          const external = stickyHref.startsWith("http");
-          const attrs = external ? ' target="_blank" rel="noopener noreferrer"' : "";
-          element.append(`<a class="site-booking-sticky" href="${stickyHref}"${attrs}><span>${stickyLabel}</span><b aria-hidden="true">↗</b></a>`, { html: true });
+          element.append(`<a class="site-booking-sticky" href="${stickyHref}"><span>${stickyLabel}</span><b aria-hidden="true">↗</b></a>`, { html: true });
         },
       })
       .on(".footer-contact", {
