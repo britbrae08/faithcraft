@@ -51,9 +51,6 @@ document.querySelectorAll('a[href^="mailto:"]').forEach((link) => {
   if (link.textContent?.includes("@")) link.textContent = contactEmail;
 });
 
-document.querySelectorAll('form[action^="mailto:"]').forEach((form) => {
-  form.setAttribute("action", `mailto:${contactEmail}`);
-});
 
 const updateScroll = () => {
   const scrollable = document.documentElement.scrollHeight - window.innerHeight;
