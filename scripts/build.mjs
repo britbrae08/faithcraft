@@ -73,7 +73,7 @@ const aiCalendarSection = `      <section class="ai-calendar-section" id="calend
         <div class="ai-calendar-intro" data-reveal>
           <p class="eyebrow"><span></span>Book your free AI Advantage call</p>
           <h2 id="calendar-title">Pick a time with Kal and get <em>The AI Advantage guide free.</em></h2>
-          <p>Choose a time below. Bring the business, marketing bottleneck, or idea you want to build, and we’ll look for practical ways AI can help you move faster and spend smarter.</p>
+          <p>Book your free consultation below so we can talk one-on-one about your ministry or business, what you want to grow, and who you want to reach. Bring your goals, challenges, or ideas, and together we’ll identify practical ways FaithCraft and AI can help you reach more people, move faster, and make smarter use of your resources.</p>
         </div>
         <div class="ai-calendar-frame" data-reveal>
           <iframe src="https://calendly.com/kalroller/kal?hide_gdpr_banner=1" title="Book a free AI Advantage call with Kal" loading="lazy"></iframe>
