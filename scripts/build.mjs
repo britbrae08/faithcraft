@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 const canonicalEmail = "kal@faithcraft.agency";
-const bookingUrl = "https://calendly.com/kalroller/kal";
+const bookingUrl = "https://faithcraft.agency/aiadvantage#calendar";
 const legacyEmails = ["kalmanroller@gmail.com"];
 const assetVersion = "20260909-nav-fix-2";
 
@@ -13,7 +13,7 @@ const canonicalHeader = `    <header class="site-header" data-header>
         <a href="/">Home</a>
         <a class="nav-feature" href="/aiadvantage">The AI Advantage</a>
         <a href="/leadgen">Lead Generator</a>
-        <a href="/#contact">Contact</a>
+        <a href="${bookingUrl}">Book a Call</a>
       </nav>
       <details class="mobile-nav">
         <summary aria-label="Open navigation menu">Menu</summary>
@@ -21,10 +21,10 @@ const canonicalHeader = `    <header class="site-header" data-header>
           <a href="/">Home</a>
           <a href="/aiadvantage">The AI Advantage</a>
           <a href="/leadgen">Lead Generator</a>
-          <a href="/#contact">Contact</a>
+          <a href="${bookingUrl}">Book a Call</a>
         </nav>
       </details>
-      <a class="button button-small button-outline" href="${bookingUrl}" target="_blank" rel="noopener noreferrer">Book a Free Call</a>
+      <a class="button button-small button-outline" href="${bookingUrl}">Book a Free Call</a>
     </header>`;
 
 const sharedNavCriticalStyles = `    <style id="shared-nav-critical">
@@ -47,13 +47,13 @@ const canonicalFooter = `    <footer>
       </a>
       <div class="footer-center">
         <p>Strategy. Creativity. Kingdom Impact.</p>
-        <nav class="footer-nav" aria-label="Footer navigation"><a href="/">Home</a><a href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="/#contact">Contact</a></nav>
+        <nav class="footer-nav" aria-label="Footer navigation"><a href="/">Home</a><a href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="${bookingUrl}">Book a Call</a></nav>
         <a class="reading-journey-link" href="https://tryjesusmedia.com/bibleandconflictoftheages/" target="_blank" rel="noopener noreferrer">Bible and Conflict of the Ages reading journey</a>
       </div>
       <div class="footer-contact"><a href="mailto:kal@faithcraft.agency">kal@faithcraft.agency</a><a href="sms:8162596486?body=faithcraft">816-259-6486</a><span>© <span data-year></span> FaithCraft Agency</span></div>
     </footer>`;
 
-const canonicalMobileCta = `    <a class="mobile-cta" href="/#contact"><span>Contact FaithCraft</span><b>↗</b></a>`;
+const canonicalMobileCta = `    <a class="mobile-cta" href="${bookingUrl}"><span>Book a Free Call</span><b>↗</b></a>`;
 
 const aiCalendarStyles = `    <style id="ai-calendar-styles">
       .ai-calendar-section { width: var(--container); margin: 0 auto; padding: 118px 0 130px; scroll-margin-top: 100px; }
