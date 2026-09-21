@@ -9,7 +9,7 @@ const canonicalHeader = `
     <a href="/">Home</a>
     <a class="nav-feature" href="/aiadvantage">The AI Advantage</a>
     <a href="/leadgen">Lead Generator</a>
-    <a href="/#contact">Contact</a>
+    <a href="https://faithcraft.agency/aiadvantage#calendar">Book a Call</a>
   </nav>
   <a class="fc-mobile-menu-toggle" href="#fc-mobile-menu" aria-label="Open navigation menu">Menu</a>
   <nav class="fc-mobile-menu-panel" id="fc-mobile-menu" aria-label="Mobile navigation">
@@ -17,9 +17,9 @@ const canonicalHeader = `
     <a href="/">Home</a>
     <a href="/aiadvantage">The AI Advantage</a>
     <a href="/leadgen">Lead Generator</a>
-    <a href="/#contact">Contact</a>
+    <a href="https://faithcraft.agency/aiadvantage#calendar">Book a Call</a>
   </nav>
-  <a class="button button-small button-outline" href="/#contact">Contact FaithCraft</a>
+  <a class="button button-small button-outline" href="https://faithcraft.agency/aiadvantage#calendar">Book a Free Call</a>
 </header>`;
 
 const runtimeNavStyles = `
@@ -511,7 +511,7 @@ const guidePage = `<!doctype html>
     </a>
     <div class="footer-center">
       <p>Strategy. Creativity. Kingdom Impact.</p>
-      <nav class="footer-nav" aria-label="Footer navigation"><a href="/">Home</a><a href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="/#contact">Contact</a></nav>
+      <nav class="footer-nav" aria-label="Footer navigation"><a href="/">Home</a><a href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="https://faithcraft.agency/aiadvantage#calendar">Book a Call</a></nav>
       <a class="reading-journey-link" href="https://tryjesusmedia.com/bibleandconflictoftheages/" target="_blank" rel="noopener noreferrer">Bible and Conflict of the Ages reading journey</a>
     </div>
     <div class="footer-contact"><a href="mailto:kal@faithcraft.agency">kal@faithcraft.agency</a><a href="sms:8162596486?body=faithcraft">816-259-6486</a><span>© <span id="guideYear"></span> FaithCraft Agency</span></div>
