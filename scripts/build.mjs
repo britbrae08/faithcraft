@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 const canonicalEmail = "kal@faithcraft.agency";
+const bookingUrl = "https://calendly.com/kalroller/kal";
 const legacyEmails = ["kalmanroller@gmail.com"];
 const assetVersion = "20260909-nav-fix-2";
 
@@ -23,7 +24,7 @@ const canonicalHeader = `    <header class="site-header" data-header>
           <a href="/#contact">Contact</a>
         </nav>
       </details>
-      <a class="button button-small button-outline" href="/#contact">Contact FaithCraft</a>
+      <a class="button button-small button-outline" href="${bookingUrl}" target="_blank" rel="noopener noreferrer">Book a Free Call</a>
     </header>`;
 
 const sharedNavCriticalStyles = `    <style id="shared-nav-critical">
@@ -140,7 +141,10 @@ const normalizeSiteShell = (text, path) => {
   let value = normalizeContactEmail(text);
   if (!value.includes("<html")) return value;
 
-  if (path === "/sling" || path === "/sling/" || path === "/sling/index.html") return value;
+  if (
+    path === "/sling" || path === "/sling/" || path === "/sling/index.html" ||
+    path === "/faithwords" || path === "/faithwords/" || path === "/faithwords/index.html"
+  ) return value;
 
   value = value
     .replace(/\/styles\.css(?:\?v=[^"]*)?/g, `/styles.css?v=${assetVersion}`)
@@ -165,10 +169,6 @@ const normalizeSiteShell = (text, path) => {
     value = value.replace(/\s*<\/body>/, `\n${canonicalFooter}\n  </body>`);
   }
 
-  if (value.includes('<script src="/script.js') && !value.includes('class="mobile-cta"')) {
-    value = value.replace(/\s*(<script src="\/script\.js[^>]*><\/script>)/, `\n${canonicalMobileCta}\n    $1`);
-  }
-
   const isAiPage = value.includes('class="ai-page"');
 
   if (isAiPage) {
@@ -179,9 +179,6 @@ const normalizeSiteShell = (text, path) => {
       value = value.replace(/\s*<\/main>/, `\n${aiCalendarSection}\n    </main>`);
     }
     value = rewriteAnchorButtons(value, "#calendar", "Book a Call + Get the AI Advantage Guide Free");
-  } else {
-    const contactHref = value.includes('id="contact"') ? "#contact" : "/#contact";
-    value = rewriteAnchorButtons(value, contactHref, "Contact FaithCraft");
   }
 
   return value;
