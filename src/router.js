@@ -161,6 +161,22 @@ const guidePage = `<!doctype html>
     .guide-page .site-header { color: #ebe9de; }
     .guide-page main { min-height: 100vh; padding-top: 92px; }
 
+    .booking-confirmation {
+      position: relative;
+      z-index: 30;
+      padding: 16px 24px;
+      border-bottom: 1px solid rgba(229,181,91,.5);
+      background: #e5b55b;
+      color: #010c18;
+      text-align: center;
+      font-size: clamp(.95rem, 2vw, 1.12rem);
+      font-weight: 800;
+      line-height: 1.45;
+      letter-spacing: -.01em;
+      box-shadow: 0 8px 24px rgba(1,12,24,.16);
+    }
+    .booking-confirmation strong { font-weight: 900; text-transform: uppercase; letter-spacing: .03em; }
+
     .guide-hero {
       position: relative;
       overflow: hidden;
@@ -278,6 +294,7 @@ const guidePage = `<!doctype html>
   <header class="site-header" data-header></header>
 
   <main id="main">
+    <div class="booking-confirmation" role="status" aria-live="polite"><strong>You’re booked!</strong> Our appointment link will be sent to your email.</div>
     <section class="guide-hero">
       <div class="guide-hero-inner">
         <span class="guide-badge">Your AI Advantage Guide</span>
