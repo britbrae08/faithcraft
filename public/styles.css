@@ -235,6 +235,16 @@ blockquote strong { color: var(--gold-bright); }
 .contact-actions .button { cursor: pointer; font-family: var(--body); }
 .form-note { margin: -3px 0 0; color: var(--gray); font-size: .67rem; line-height: 1.6; }
 
+.booking-card { align-content: start; }
+.booking-card .booking-kicker { margin: 0; color: var(--gold-bright); font-size: .66rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.booking-card h3 { margin: 0; color: var(--ivory); font-family: var(--display); font-size: clamp(1.7rem, 3vw, 2.7rem); line-height: 1.08; }
+.booking-card > p:not(.booking-kicker):not(.form-note) { margin: 0; color: var(--muted); line-height: 1.75; }
+.booking-benefits { margin: 0; padding: 0; display: grid; gap: 10px; list-style: none; }
+.booking-benefits li { position: relative; padding: 13px 14px 13px 40px; border: 1px solid rgba(235,233,222,.1); border-radius: 7px; color: #d8d6cf; background: rgba(255,255,255,.025); font-size: .8rem; line-height: 1.55; }
+.booking-benefits li::before { content: "✓"; position: absolute; left: 15px; top: 12px; color: var(--gold-bright); font-weight: 900; }
+.booking-card .button { width: 100%; justify-content: center; text-align: center; }
+.booking-card .form-note strong { color: var(--ivory); }
+
 footer { width: var(--container); min-height: 250px; margin: 0 auto; padding: 65px 0; display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; border-bottom: 1px solid var(--line); }
 .brand-footer { justify-self: start; }
 .footer-center { display: grid; justify-items: center; gap: 18px; text-align: center; }
