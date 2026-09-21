@@ -348,11 +348,11 @@ export default {
     const seo = seoByPath[path];
     const isGuide = path === "/aiadvantage/guide";
     const isGame = path === "/sling" || path === "/faithwords";
-    const showBookingSticky = !isGuide && !isGame;
-    const stickyHref = path === "/aiadvantage" ? "#calendar" : bookingUrl;
-    const stickyLabel = path === "/aiadvantage"
-      ? "Book a Free AI Advice Call"
-      : "Book a Free Call + Get the AI Advantage Guide";
+    const showBookingSticky = !isGame;
+    const stickyHref = isGuide ? "#call-reminder" : (path === "/aiadvantage" ? "#calendar" : bookingUrl);
+    const stickyLabel = isGuide
+      ? "You’re Booked — Prepare for Your Call"
+      : (path === "/aiadvantage" ? "Book a Free AI Advice Call" : "Book a Free Call + Get the AI Advantage Guide");
 
     let rewriter = new HTMLRewriter()
       .on("head", {
