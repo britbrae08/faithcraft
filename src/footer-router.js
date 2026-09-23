@@ -3,6 +3,7 @@ import { privacyHtml } from "./privacy.js";
 import { footerStyles, sharedFooter } from "./shared-footer.js";
 import { readableType } from "./readable-type.js";
 import { pageColorStyles, colorPageLink } from "./page-colors.js";
+import { materialsGallery, materialsStyles } from "./materials-gallery.js";
 
 const bookingUrl = "https://faithcraft.agency/aiadvantage#calendar";
 
@@ -416,6 +417,12 @@ export default {
         .on("main", { element(element) { element.append(serviceLinksMarkup(), { html: true }); } });
     }
 
+    if (path === '/leadgen') {
+      rewriter = rewriter
+        .on('head', { element(element) { element.append(materialsStyles, { html: true }); } })
+        .on('.campaign-preview, .campaign-insets', { element(element) { element.remove(); } })
+        .on('.leadgen-audience', { element(element) { element.after(materialsGallery, { html: true }); } });
+    }
     // A second pass also colors footer and booking links inserted above.
     return new HTMLRewriter().on('a[href]', { element(element) { colorPageLink(element, path); } }).transform(rewriter.transform(response));
   },
