@@ -1,0 +1,11 @@
+export const footerStyles = `<style>
+.fc-footer{box-sizing:border-box;width:min(1180px,calc(100% - 40px));margin:0 auto;padding:48px 0 100px;display:grid;grid-template-columns:140px minmax(0,1fr) minmax(250px,auto);gap:32px;align-items:center;border-top:1px solid #46515c;color:#ebe9de;font:18px/1.65 system-ui,sans-serif;text-align:center}
+.fc-footer *{box-sizing:border-box}.fc-footer img{width:112px;height:112px;max-width:100%;object-fit:contain}.fc-footer p{margin:0 0 16px;color:#e5b55b;font-size:20px;font-weight:600}.fc-footer a{color:#ebe9de;font-size:18px;line-height:1.65;letter-spacing:normal;text-transform:none;text-decoration:underline;text-underline-offset:4px;display:inline-block;padding:8px 4px;overflow-wrap:anywhere}.fc-footer a:hover{color:#e5b55b}.fc-footer a:focus-visible{outline:3px solid #e5b55b;outline-offset:4px;border-radius:3px}.fc-footer nav{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 18px}.fc-footer-contact{display:flex;flex-direction:column;align-items:center;min-width:0}.fc-footer small{font-size:18px;color:#ebe9de}.fc-footer .fc-reading{margin-top:12px;color:#e5b55b}
+@media(max-width:950px){.fc-footer{grid-template-columns:1fr;gap:24px;padding-bottom:110px}.fc-footer-logo{justify-self:center}}
+</style>`;
+
+export const sharedFooter = () => `<footer class="fc-footer" aria-label="Site footer">
+<a class="fc-footer-logo" href="/" aria-label="FaithCraft home"><img src="/faithcraft-logo.jpg" alt="FaithCraft Agency" width="112" height="112" loading="lazy"></a>
+<div><p>Strategy. Creativity. Kingdom Impact.</p><nav aria-label="Footer navigation"><a href="/">Home</a><a href="/aiadvantage">The AI Advantage</a><a href="/leadgen">Lead Generator</a><a href="/aiadvantage#calendar">Book a Call</a><a href="/privacy">Privacy Policy</a><a href="/sling">FaithWords</a></nav><a class="fc-reading" href="https://tryjesusmedia.com/bibleandconflictoftheages/" target="_blank" rel="noopener noreferrer">Bible and Conflict of the Ages reading journey</a></div>
+<div class="fc-footer-contact"><a href="mailto:kal@faithcraft.agency">kal@faithcraft.agency</a><a href="sms:8162596486?body=faithcraft">816-259-6486</a><small>© ${new Date().getFullYear()} FaithCraft</small></div>
+</footer>`;

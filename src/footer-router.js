@@ -1,5 +1,6 @@
 import app from "./router.js";
 import { privacyHtml } from "./privacy.js";
+import { footerStyles, sharedFooter } from "./shared-footer.js";
 
 const bookingUrl = "https://faithcraft.agency/aiadvantage#calendar";
 
@@ -337,7 +338,8 @@ export default {
     const path = normalizePath(url.pathname);
     if (path === "/privacy") {
       if (!["GET", "HEAD"].includes(request.method)) return new Response("Method Not Allowed", { status: 405, headers: { Allow: "GET, HEAD" } });
-      return new Response(request.method === "HEAD" ? null : privacyHtml, { headers: { "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "public, max-age=300", "X-Content-Type-Options": "nosniff" } });
+      const page = privacyHtml.replace('</head>', footerStyles + '</head>').replace('</body>', sharedFooter() + '</body>');
+      return new Response(request.method === "HEAD" ? null : page, { headers: { "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "public, max-age=300", "X-Content-Type-Options": "nosniff" } });
     }
     if (isSlingPath(url.pathname)) return app.fetch(request, env, ctx);
 
@@ -360,10 +362,10 @@ export default {
       : (path === "/aiadvantage" ? "Book a Free AI Advice Call" : "Book a Free Call + Get the AI Advantage Guide");
 
     let rewriter = new HTMLRewriter()
-      .on(".footer-nav", { element(element) { element.append('<a href="/privacy">Privacy Policy</a>', { html: true }); } })
+      .on("footer", { element(element) { element.remove(); } })
       .on("head", {
         element(element) {
-          element.append(footerFaithWordsStyles + seoStyles + bookingStickyStyles, { html: true });
+          element.append(footerStyles + seoStyles + bookingStickyStyles, { html: true });
           if (seo) element.append(schemaMarkup(path, seo), { html: true });
           if (isGuide) element.append('<meta name="robots" content="noindex,follow" />', { html: true });
         },
@@ -375,6 +377,7 @@ export default {
       })
       .on("body", {
         element(element) {
+          element.append(sharedFooter(), { html: true });
           if (!showBookingSticky) return;
           const existingClass = element.getAttribute("class") || "";
           element.setAttribute("class", `${existingClass} has-booking-sticky`.trim());
