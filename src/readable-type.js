@@ -12,4 +12,22 @@ body :is(p,li,label,small,dt,dd){overflow-wrap:anywhere}
 body.has-booking-sticky{padding-bottom:130px!important}
 @media(max-width:980px){.site-header .desktop-nav{display:none!important}.site-header .fc-mobile-menu-toggle{display:inline-flex!important}.site-header>.button{display:none!important}}
 @media(max-width:760px){.site-header{width:calc(100% - 24px)}.site-booking-sticky{max-width:calc(100vw - 20px)}.fc-footer{padding-bottom:140px}}
+/* Larger type needs real layout space rather than overlapping illustration cards. */
+@media(max-width:1100px){
+  .hero-visual{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;min-height:0;transform:none;margin:0;width:100%}
+  .hero-visual .signal-card{position:relative;inset:auto;transform:none!important;width:auto;min-width:0;min-height:0;animation:none}
+  .hero-visual .signal-card-main{grid-column:1/-1;padding:24px}
+  .hero-visual .signal-card:not(.signal-card-main){padding:18px}
+  .hero-visual .orbit{display:none}
+}
+@media(max-width:760px){
+  .site-header,.site-header.is-scrolled{position:relative!important;top:auto!important;left:auto!important;right:auto!important;transform:none!important;width:calc(100% - 24px)!important;height:auto!important;margin:12px auto;min-height:80px}
+  .hero-visual{grid-template-columns:1fr}
+  .hero-visual .signal-card-main{grid-column:auto}
+  .audience-strip{flex-direction:column;gap:16px}
+  .audience-strip>div{display:grid;grid-template-columns:1fr;gap:14px}
+  .site-booking-sticky{position:relative;inset:auto;margin:24px auto;width:calc(100% - 24px);max-width:none;padding:18px;box-sizing:border-box}
+  body.has-booking-sticky{padding-bottom:0!important}
+  .fc-footer{padding-bottom:32px}
+}
 </style>`;
