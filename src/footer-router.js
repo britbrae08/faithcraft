@@ -1,6 +1,7 @@
 import app from "./router.js";
 import { privacyHtml } from "./privacy.js";
 import { footerStyles, sharedFooter } from "./shared-footer.js";
+import { readableType } from "./readable-type.js";
 
 const bookingUrl = "https://faithcraft.agency/aiadvantage#calendar";
 
@@ -338,7 +339,7 @@ export default {
     const path = normalizePath(url.pathname);
     if (path === "/privacy") {
       if (!["GET", "HEAD"].includes(request.method)) return new Response("Method Not Allowed", { status: 405, headers: { Allow: "GET, HEAD" } });
-      const page = privacyHtml.replace('</head>', footerStyles + '</head>').replace('</body>', sharedFooter() + '</body>');
+      const page = privacyHtml.replace('</head>', footerStyles + readableType + '</head>').replace('</body>', sharedFooter() + '</body>');
       return new Response(request.method === "HEAD" ? null : page, { headers: { "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "public, max-age=300", "X-Content-Type-Options": "nosniff" } });
     }
     if (isSlingPath(url.pathname)) return app.fetch(request, env, ctx);
@@ -365,7 +366,7 @@ export default {
       .on("footer", { element(element) { element.remove(); } })
       .on("head", {
         element(element) {
-          element.append(footerStyles + seoStyles + bookingStickyStyles, { html: true });
+          element.append(footerStyles + seoStyles + bookingStickyStyles + readableType, { html: true });
           if (seo) element.append(schemaMarkup(path, seo), { html: true });
           if (isGuide) element.append('<meta name="robots" content="noindex,follow" />', { html: true });
         },
