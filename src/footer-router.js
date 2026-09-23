@@ -4,6 +4,7 @@ import { footerStyles, sharedFooter } from "./shared-footer.js";
 import { readableType } from "./readable-type.js";
 import { pageColorStyles, colorPageLink } from "./page-colors.js";
 import { materialsGallery, materialsStyles } from "./materials-gallery.js";
+import { withStickyNavigation } from "./sticky-navigation.js";
 
 const bookingUrl = "https://faithcraft.agency/aiadvantage#calendar";
 
@@ -342,7 +343,7 @@ export default {
     if (path === "/privacy") {
       if (!["GET", "HEAD"].includes(request.method)) return new Response("Method Not Allowed", { status: 405, headers: { Allow: "GET, HEAD" } });
       const page = privacyHtml.replace('</head>', footerStyles + readableType + pageColorStyles(path) + '</head>').replace('</body>', sharedFooter() + '</body>');
-      return new HTMLRewriter().on('a[href]', { element: colorPageLink }).transform(new Response(request.method === "HEAD" ? null : page, { headers: { "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "public, max-age=300", "X-Content-Type-Options": "nosniff" } }));
+      return new HTMLRewriter().on('a[href]', { element: colorPageLink }).transform(withStickyNavigation(new Response(request.method === "HEAD" ? null : page, { headers: { "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "public, max-age=300", "X-Content-Type-Options": "nosniff" } })));
     }
     if (isSlingPath(url.pathname)) {
       const game = await app.fetch(request, env, ctx);
@@ -424,6 +425,6 @@ export default {
         .on('.leadgen-audience', { element(element) { element.after(materialsGallery, { html: true }); } });
     }
     // A second pass also colors footer and booking links inserted above.
-    return new HTMLRewriter().on('a[href]', { element(element) { colorPageLink(element, path); } }).transform(rewriter.transform(response));
+    return new HTMLRewriter().on('a[href]', { element(element) { colorPageLink(element, path); } }).transform(withStickyNavigation(rewriter.transform(response)));
   },
 };
