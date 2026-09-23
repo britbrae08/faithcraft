@@ -342,7 +342,13 @@ export default {
       const page = privacyHtml.replace('</head>', footerStyles + readableType + '</head>').replace('</body>', sharedFooter() + '</body>');
       return new Response(request.method === "HEAD" ? null : page, { headers: { "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "public, max-age=300", "X-Content-Type-Options": "nosniff" } });
     }
-    if (isSlingPath(url.pathname)) return app.fetch(request, env, ctx);
+    if (isSlingPath(url.pathname)) {
+      const game = await app.fetch(request, env, ctx);
+      const headers = new Headers(game.headers);
+      // Google OAuth popups must retain communication with the embedded game.
+      headers.set('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+      return new Response(game.body, { status: game.status, headers });
+    }
 
     const service = services[path];
     const response = service
