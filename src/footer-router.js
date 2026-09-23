@@ -1,4 +1,5 @@
 import app from "./router.js";
+import { privacyHtml } from "./privacy.js";
 
 const bookingUrl = "https://faithcraft.agency/aiadvantage#calendar";
 
@@ -334,6 +335,10 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const path = normalizePath(url.pathname);
+    if (path === "/privacy") {
+      if (!["GET", "HEAD"].includes(request.method)) return new Response("Method Not Allowed", { status: 405, headers: { Allow: "GET, HEAD" } });
+      return new Response(request.method === "HEAD" ? null : privacyHtml, { headers: { "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "public, max-age=300", "X-Content-Type-Options": "nosniff" } });
+    }
     if (isSlingPath(url.pathname)) return app.fetch(request, env, ctx);
 
     const service = services[path];
@@ -355,6 +360,7 @@ export default {
       : (path === "/aiadvantage" ? "Book a Free AI Advice Call" : "Book a Free Call + Get the AI Advantage Guide");
 
     let rewriter = new HTMLRewriter()
+      .on(".footer-nav", { element(element) { element.append('<a href="/privacy">Privacy Policy</a>', { html: true }); } })
       .on("head", {
         element(element) {
           element.append(footerFaithWordsStyles + seoStyles + bookingStickyStyles, { html: true });
